@@ -11,10 +11,11 @@ d <- do.call(rbind, lapply(files, function(ff) {
     tmp
 }))
 
-## p <- ggplot(subset(d, rsq < 1)) # + geom_jitter(aes(x=dist, y=rsq, color=sim), alpha=0.6, size=1)
-## p <- p + geom_smooth(aes(x=dist, y=rsq, color=type), se=FALSE)
-## p <- p + xlab("distance") + ylab(expression(r^{2}))
-
-ggplot(d) + geom_smooth(aes(x=dist, y=rsq, group=sim), se=FALSE)  + facet_wrap(~type)
+samps <- sample(unique(d$sim), 12)
+p <- ggplot(subset(d, sim %in% samps))
+p <- p + geom_jitter(aes(x=dist, y=rsq, color=type), alpha=0.3, size=0.1)
+p <- p + geom_smooth(aes(x=dist, y=rsq, color=type), se=FALSE)
+p <- p + facet_wrap(~sim)
+p <- p + xlab("distance") + ylab(expression(r^{2}))
 
 ggsave("sim.png", plot=p)
