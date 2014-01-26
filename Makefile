@@ -1,5 +1,5 @@
 CC=clang++
-CFLAGS=-lsequence -lz -O0 -g
+CFLAGS=-lsequence -lz -O0 -g -Wextra
 NSIMS=12
 
 sim: recomb.txt no-recomb.txt ld

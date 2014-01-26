@@ -8,7 +8,8 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-  
+  static_cast<void>(argc), static_cast<void>(argv);
+
   Sequence::SimParams p;
   cin >> p;
   Sequence::SimData d(p.totsam());
@@ -31,4 +32,5 @@ int main(int argc, char *argv[]) {
     }
     ++sim;
   }
+  return 0;
 }
