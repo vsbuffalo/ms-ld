@@ -12,23 +12,24 @@ int main(int argc, char *argv[]) {
 
   Sequence::SimParams p;
   cin >> p;
-  Sequence::SimData d(p.totsam());
+  Sequence::SimData d();
 
   // K. Thorton does this; not sure why as it's much slower
   std::ios_base::sync_with_stdio(true); 
 
   int rv, sim=0;
-  cout << "sim\tpos_i\tpos_j\trsq\tD" << endl;
+  cout << "sim\tpos_i\tpos_j\trsq\tD\tDprime" << endl;
   while( (rv = d.fromfile(stdin)) != EOF ) {
-    vector<vector<double> > recomb_stats;
+    vector<Sequence::PairwiseLDstats> recomb_stats;
     recomb_stats = Sequence::Recombination::Disequilibrium(&d);
 
     // output table of r^2 and positions
     for (unsigned i=0; i < recomb_stats.size(); ++i) {
-      cout << sim << "\t" << recomb_stats[i][0] << "\t" 
-	   << recomb_stats[i][1] << "\t" 
-	   << recomb_stats[i][2] << "\t" 
-	   << recomb_stats[i][3] << endl;
+      cout << sim << "\t" << recomb_stats[i].i << "\t" 
+	   << recomb_stats[i].j << "\t" 
+	   << recomb_stats[i].rsq << "\t" 
+	   << recomb_stats[i].D << << "\t" 
+	   << recomb_stats[i].Dprime << endl;
     }
     ++sim;
   }
